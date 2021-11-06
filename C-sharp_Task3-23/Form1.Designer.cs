@@ -29,7 +29,7 @@ namespace C_sharp_Task3_23
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
@@ -37,6 +37,11 @@ namespace C_sharp_Task3_23
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxOutput = new System.Windows.Forms.TextBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.textBoxMinSpeed = new System.Windows.Forms.TextBox();
+            this.textBoxMaxSpeed = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,17 +59,17 @@ namespace C_sharp_Task3_23
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(33, 26);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(962, 600);
+            this.dataGridView1.Size = new System.Drawing.Size(962, 390);
             this.dataGridView1.TabIndex = 4;
             // 
             // button3
@@ -119,11 +124,57 @@ namespace C_sharp_Task3_23
             this.textBox2.Size = new System.Drawing.Size(264, 26);
             this.textBox2.TabIndex = 9;
             // 
+            // textBoxOutput
+            // 
+            this.textBoxOutput.Location = new System.Drawing.Point(33, 436);
+            this.textBoxOutput.Multiline = true;
+            this.textBoxOutput.Name = "textBoxOutput";
+            this.textBoxOutput.Size = new System.Drawing.Size(962, 190);
+            this.textBoxOutput.TabIndex = 10;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(1037, 546);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(264, 46);
+            this.button6.TabIndex = 11;
+            this.button6.Text = "Найти автомобили по диапазону скорости";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // textBoxMinSpeed
+            // 
+            this.textBoxMinSpeed.Location = new System.Drawing.Point(1037, 606);
+            this.textBoxMinSpeed.Name = "textBoxMinSpeed";
+            this.textBoxMinSpeed.Size = new System.Drawing.Size(107, 20);
+            this.textBoxMinSpeed.TabIndex = 12;
+            // 
+            // textBoxMaxSpeed
+            // 
+            this.textBoxMaxSpeed.Location = new System.Drawing.Point(1190, 606);
+            this.textBoxMaxSpeed.Name = "textBoxMaxSpeed";
+            this.textBoxMaxSpeed.Size = new System.Drawing.Size(111, 20);
+            this.textBoxMaxSpeed.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1159, 609);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "---";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 660);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxMaxSpeed);
+            this.Controls.Add(this.textBoxMinSpeed);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -147,6 +198,11 @@ namespace C_sharp_Task3_23
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxOutput;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBoxMinSpeed;
+        private System.Windows.Forms.TextBox textBoxMaxSpeed;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -130,5 +130,17 @@ namespace C_sharp_Task3_23
         {
             textBox2.Text = taxiStation.CalculateCostOfVehicleFleet().ToString();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            List<Car> cars;
+            cars = taxiStation.FindCarsBySpeed(Convert.ToDouble(textBoxMinSpeed.Text), Convert.ToDouble(textBoxMaxSpeed.Text));
+            textBoxOutput.Text = "";
+            foreach (Car car in cars)
+            {
+                textBoxOutput.Text += car.ToDataString();
+                textBoxOutput.Text += "\r\n";
+            }
+        }
     }
 }
