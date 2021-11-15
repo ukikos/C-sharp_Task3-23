@@ -16,20 +16,22 @@ namespace C_sharp_Task3_23
         public Form1()
         {
             InitializeComponent();
+
+            openFileDialog1.Filter = "Текстовые документы(*.txt)|*.txt|Все файлы(*.*)|*.*";
+            saveFileDialog1.Filter = "Текстовые документы(*.txt)|*.txt|Все файлы(*.*)|*.*";
         }
 
-        TaxiStation taxiStation = new TaxiStation();
-        string path = @"C:\Users\vakul\source\repos\C-sharp_Task3-23\text.txt";
-        DataTable table = new DataTable();
+        TaxiStation taxiStation;
+        string path;
 
-        private void UpdateDataGridView()
+        private void openButton_Click(object sender, EventArgs e)
         {
-            dataGridView1.Update();
-            dataGridView1.Refresh();
-        }
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
 
-        private void button3_Click(object sender, EventArgs e)
-        {
+            path = openFileDialog1.FileName;
+            pathTextBox.Text = path;
+
             taxiStation = new TaxiStation();
             using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
@@ -58,10 +60,22 @@ namespace C_sharp_Task3_23
             dataGridView1.DataSource = table;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
             taxiStation = new TaxiStation();
-            for (int i = 0; i < dataGridView1.RowCount-1; i++)
+
+            int countOfEmptyRows = 0;
+            for (int j = 0; j < dataGridView1.RowCount - 1; j++)
+            {
+                if (dataGridView1[0, j].Value.ToString() == "" || dataGridView1[1, j].Value.ToString() == ""
+                    || dataGridView1[2, j].Value.ToString() == ""
+                    || dataGridView1[3, j].Value.ToString() == "" || dataGridView1[4, j].Value.ToString() == "" || dataGridView1[5, j].Value.ToString() == ""
+                    || dataGridView1[6, j].Value.ToString() == "" || dataGridView1[7, j].Value.ToString() == "")
+                {
+                    countOfEmptyRows += 1;
+                }
+            }
+            for (int i = 0; i < dataGridView1.RowCount - countOfEmptyRows - 1; i++)
             {
                 taxiStation.AddCar(new Car(dataGridView1[0, i].Value.ToString(), dataGridView1[1, i].Value.ToString(),
                     (Car.Body) Enum.Parse(typeof(Car.Body), dataGridView1[2, i].Value.ToString()), dataGridView1[3, i].Value.ToString(),
@@ -78,33 +92,57 @@ namespace C_sharp_Task3_23
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void saveHowButton_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filePath = saveFileDialog1.FileName;
+
+            taxiStation = new TaxiStation();
+
+            int countOfEmptyRows = 0;
+            for (int j = 0; j < dataGridView1.RowCount - 1; j++)
+            {
+                if (dataGridView1[0, j].Value.ToString() == "" || dataGridView1[1, j].Value.ToString() == ""
+                    || dataGridView1[2, j].Value.ToString() == "" || dataGridView1[3, j].Value.ToString() == ""
+                    || dataGridView1[4, j].Value.ToString() == "" || dataGridView1[5, j].Value.ToString() == ""
+                    || dataGridView1[6, j].Value.ToString() == "" || dataGridView1[7, j].Value.ToString() == "")
+                {
+                    countOfEmptyRows += 1;
+                }
+            }
+            for (int i = 0; i < dataGridView1.RowCount - countOfEmptyRows - 1; i++)
+            {
+                taxiStation.AddCar(new Car(dataGridView1[0, i].Value.ToString(), dataGridView1[1, i].Value.ToString(),
+                    (Car.Body)Enum.Parse(typeof(Car.Body), dataGridView1[2, i].Value.ToString()), dataGridView1[3, i].Value.ToString(),
+                    Convert.ToDouble(dataGridView1[4, i].Value.ToString()), Convert.ToInt32(dataGridView1[5, i].Value.ToString()),
+                    Convert.ToDouble(dataGridView1[6, i].Value.ToString()), Convert.ToDouble(dataGridView1[7, i].Value.ToString())));
+            }
+            using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.Default))
+            {
+                foreach (Car car in taxiStation.CarList)
+                {
+                    sw.WriteLine(car.ToDataString());
+                }
+            }
+            path = filePath;
+            pathTextBox.Text = path;
+        }
+
+        private void sortByFuelConsumptionAscButton_Click(object sender, EventArgs e)
         {
             taxiStation.SortByFuelConsumptionAscending();
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
-            DataTable table = new DataTable();
-            table.Columns.Add("Бренд", typeof(string));
-            table.Columns.Add("Модель", typeof(string));
-            table.Columns.Add("Тип кузова", typeof(Car.Body));
-            table.Columns.Add("Рег.номер", typeof(string));
-            table.Columns.Add("Макс.скорость", typeof(double));
-            table.Columns.Add("Кол-во пассажирских мест", typeof(int));
-            table.Columns.Add("Расход топлива", typeof(double));
-            table.Columns.Add("Цена", typeof(double));
-
-            foreach (Car car in taxiStation.CarList)
-            {
-                table.Rows.Add(car.Brend, car.Model, car.BodyType, car.RegistrationNumber, car.MaxSpeed, car.NumberOfPassengerSeats, car.FuelConsumption,
-                    car.Price);
-            }
-            dataGridView1.DataSource = table;
+            refreshTable();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void sortByFuelConsumptionDesButton_Click(object sender, EventArgs e)
         {
             taxiStation.SortByFuelConsumptionDescending();
+            refreshTable();
+        }
+
+        private void refreshTable()
+        {
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
@@ -126,20 +164,23 @@ namespace C_sharp_Task3_23
             dataGridView1.DataSource = table;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void calculateCostButton_Click(object sender, EventArgs e)
         {
             textBox2.Text = taxiStation.CalculateCostOfVehicleFleet().ToString();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void findCarsBySpeedButton_Click(object sender, EventArgs e)
         {
             List<Car> cars;
             cars = taxiStation.FindCarsBySpeed(Convert.ToDouble(textBoxMinSpeed.Text), Convert.ToDouble(textBoxMaxSpeed.Text));
             textBoxOutput.Text = "";
-            foreach (Car car in cars)
+            if (cars != null)
             {
-                textBoxOutput.Text += car.ToDataString();
-                textBoxOutput.Text += "\r\n";
+                foreach (Car car in cars)
+                {
+                    textBoxOutput.Text += car.ToDataString();
+                    textBoxOutput.Text += "\r\n";
+                }
             }
         }
     }

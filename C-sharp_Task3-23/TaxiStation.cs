@@ -61,6 +61,10 @@ namespace C_sharp_Task3_23
                     result.Add(car);
                 }
             }
+            if (result.Count == 0)
+            {
+                return null;
+            }
             return result;
         }
 
